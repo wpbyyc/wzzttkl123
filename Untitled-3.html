@@ -3,7 +3,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no"/>
-    <title>Simple Map</title>
+    <title>Complex Map</title>
     <link rel="stylesheet" href="https://js.arcgis.com/3.23/esri/css/esri.css">
     <style>
       html, body, #map {
@@ -14,26 +14,39 @@
     </style>
     <script src="https://js.arcgis.com/3.23/"></script>
     <script>
-      var map;
-       
-            
-       
-      function innit(){
-        require(["esri/map", "dojo/domReady!"], function(Map) {
-        map = new Map("map", {
-          basemap: "topo",  //For full list of pre-defined basemaps, navigate to http://arcg.is/1JVo6Wd
-          center: [-122.45, 37.75], // longitude, latitude
-          zoom: 13
-        });
-      });
-      }
+        var map;
+        require(["esri/map",
+                     "dojo/dom","dojo/on","esri/geometry/Point",
+                     "dojo/domReady!"],
+            function(Map,dom,on,Point){
+               on (dom.byId("queryIt"),"click",getValues);
+              map = new Map("map");
+       function getValues(){ 
+             
+                    
+                    var MYZoom = dom.byId("Zoom").value;
+                    var MYJD = dom.byId("JD").value;
+                    var MYWD = dom.byId("WD").value;
+                    var MYBasemap = dom.byId("Basemap").value;
+                    var CENTERPoint = new Point(MYJD,MYWD);
+                    map.setZoom(MYZoom);
+                    map.centerAt(CENTERPoint);
+                    map.setBasemap(MYBasemap);
+                 };
+               
+        
+      })
     </script>
   </head>
 
   <body>
-      <input id="centerx" type="text" >
-      <input id="centery" type="text" >
-      <input type="button" text="click" value="查询" onclick="innit()">
-    <div id="map"></div>
+      <input id="Zoom" type="text" value="" placeholder="缩放级别:" />
+      <input id="JD" type="text" value="" placeholder="经度:" />
+      <input id="WD" type="text" value="" placeholder="纬度:" />
+      <input id="Basemap" type="text" value="" placeholder="地图风格:" />
+      <input type = "button" id="queryIt"  class="submitButton" value = "查询并显示地图">
+      <div id="map"></div>
+
+
   </body>
 </html>
