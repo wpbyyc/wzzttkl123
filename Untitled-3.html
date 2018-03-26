@@ -19,7 +19,7 @@
                      "dojo/dom","dojo/on","esri/geometry/Point",
                      "dojo/domReady!"],
             function(Map,dom,on,Point){
-               on (dom.byId("queryIt"),"click",getValues);
+               on (dom.byId("search"),"click",getValues);
               map = new Map("map");
        function getValues(){ 
              
@@ -44,7 +44,7 @@
       <input id="JD" type="text" value="" placeholder="经度:" />
       <input id="WD" type="text" value="" placeholder="纬度:" />
       <input id="Basemap" type="text" value="" placeholder="地图风格:" />
-      <input type = "button" id="queryIt"  class="submitButton" value = "查询并显示地图">
+      <input type = "button" id="search"  class="submitButton" value = "显示地图">
       <div id="map"></div>
 
 
